@@ -45,6 +45,7 @@ return [
     "server_error_exception" => "خطایی در سرور به وجود آمده",
     "method_not_allowed_http_exception" => "برای این مسیر همچین متدی قابل استفاده نیست",
     "relation_not_found_exception" => "ریلیشن خواسته شده اشتباه وارد شده یا وجود ندارد",
+    "error" => "خطایی در سیستم به وجود آمده است",
 
 
 ];

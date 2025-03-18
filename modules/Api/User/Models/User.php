@@ -4,15 +4,15 @@ namespace Api\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
 use Api\User\Database\Factories\UserFactory;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -22,9 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        "address",
         "birthday",
-        "age",
         "type",
         'password',
     ];
@@ -57,7 +55,34 @@ class User extends Authenticatable
      */
     protected static function newFactory(): UserFactory
     {
-        return  UserFactory::new();
+        return UserFactory::new();
+    }
+
+    public function scopeFilter(\Illuminate\Database\Eloquent\Builder $builder, Request $request)
+    {
+        return $builder
+            ->when($request->get("name"), function ($query, $name) {
+                $query->where('name', "like", "%{$name}%");
+            })
+            ->when($request->get("email"), function ($query, $email) {
+                $query->where("email", "like", "%{$email}%");
+            })
+            ->when($request->get("type"), function ($query, $type) {
+                $query->where("type", $type);
+            })
+            ->when($request->get("birthday_start"), function ($query, $birthday) {
+                $query->where("birthday", ">=", $birthday);
+            })
+            ->when($request->get("birthday_end"), function ($query, $birthday) {
+                $query->where("birthday", "<=", $birthday);
+            })->when(!empty($request->get("sort")),
+                function ($query, $sort) {
+                    foreach ($sort as $column => $order)
+                        $query->orderBy($column, $order);
+                },
+                function ($query) {
+                    $query->orderBy('id', "desc");
+                });
     }
 
 //    /**

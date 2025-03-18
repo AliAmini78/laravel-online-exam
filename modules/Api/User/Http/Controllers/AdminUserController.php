@@ -4,6 +4,8 @@ namespace Api\User\Http\Controllers;
 
 use Api\Base\Http\Controllers\ApiController;
 use Api\User\Database\Repositories\Contracts\UserRepositoryInterface;
+use Api\User\Http\Resources\Admin\AdminUserResource;
+use Illuminate\Http\Request;
 
 class AdminUserController extends ApiController
 {
@@ -14,8 +16,9 @@ class AdminUserController extends ApiController
         $this->userRepository = $userRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->successResponse();
+        $result = AdminUserResource::collection($this->userRepository->getAllWithPagination($request));
+        return $this->successResponse($result , 200 , null , $result->response()->getData()->meta);
     }
 }

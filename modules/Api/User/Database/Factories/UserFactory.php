@@ -21,9 +21,7 @@ class UserFactory extends Factory
             "email" => $this->faker->unique()->email,
             "type" => UserTypeEnum::toArray()[array_rand( UserTypeEnum::toArray())],
             "password" => "123456",
-            "address" => $this->faker->address,
             "birthday" => $this->faker->date,
-            "age" => $this->faker->numberBetween( 10 , 89),
         ];
     }
 }

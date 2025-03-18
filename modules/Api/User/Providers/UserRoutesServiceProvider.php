@@ -5,7 +5,7 @@ namespace Api\User\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
-class UserServiceProvider extends ServiceProvider
+class UserRoutesServiceProvider extends ServiceProvider
 {
 
     /**
@@ -13,11 +13,9 @@ class UserServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->register(UserRepositoryPatternServiceProvider::class);
-
-        $this->app->register(UserRoutesServiceProvider::class);
-
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        Route::prefix('api/admin/user')
+            ->middleware(['api'])
+            ->group(__DIR__ . '/../Routes/admin_api_routes.php');
     }
 
     /**

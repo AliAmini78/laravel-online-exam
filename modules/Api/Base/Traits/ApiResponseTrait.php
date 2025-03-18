@@ -13,7 +13,7 @@ trait ApiResponseTrait
      * @param null $meta
      * @return JsonResponse
      */
-    public function successResponse($data = null, string $message = null, int $status = 200, $meta = null): JsonResponse
+    public function successResponse($data = null, int $status = 200, string $message = null,  $meta = null): JsonResponse
     {
         return response()->json([
             "status" => "success",

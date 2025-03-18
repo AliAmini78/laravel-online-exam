@@ -13,4 +13,20 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         $this->model = $model;
     }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return mixed
+     */
+    public function getAllWithPagination(\Illuminate\Http\Request $request): mixed
+    {
+        $perPage = $request->get('per_page') ?? 20;
+        $relation = $request->get('relation') ?? [];
+
+        return $this->model
+            ->newQuery()
+            ->filter($request)
+            ->with($relation)
+            ->paginate($perPage);
+    }
 }
