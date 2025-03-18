@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Models;
+namespace Api\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
+use Api\User\Database\Factories\UserFactory;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -20,6 +22,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        "address",
+        "birthday",
+        "age",
+        "type",
         'password',
     ];
 
@@ -45,4 +51,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * @return UserFactory
+     */
+    protected static function newFactory(): UserFactory
+    {
+        return  UserFactory::new();
+    }
+
+//    /**
+//     * @return HasMany
+//     */
+//    public function lectures(): HasMany
+//    {
+//       return $this->hasMany(Lecture::class , "teacher_id" , "id");
+//    }
+
 }
