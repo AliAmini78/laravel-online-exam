@@ -2,7 +2,7 @@
 
 namespace Api\User\Database\Repositories\Repos;
 
-use Api\Base\Database\Repositories\Repo\BaseRepository;
+use Api\Base\Database\Repositories\Repos\BaseRepository;
 use Api\User\Database\Repositories\Contracts\UserRepositoryInterface;
 use Api\User\Models\User;
 

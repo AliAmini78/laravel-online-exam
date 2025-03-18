@@ -5,7 +5,7 @@ namespace Api\User\Http\Controllers;
 use Api\Base\Http\Controllers\ApiController;
 use Api\User\Database\Repositories\Contracts\UserRepositoryInterface;
 
-class UserController extends ApiController
+class AdminUserController extends ApiController
 {
     private UserRepositoryInterface $userRepository;
 
@@ -16,5 +16,6 @@ class UserController extends ApiController
 
     public function index()
     {
+        return $this->successResponse();
     }
 }
