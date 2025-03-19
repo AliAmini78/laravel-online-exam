@@ -27,4 +27,10 @@ interface UserRepositoryInterface extends BaseRepositoryInterface
      * @return mixed
      */
     public function update(User $user, array $inputs): mixed;
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function delete(User $user): mixed;
 }

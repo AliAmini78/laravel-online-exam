@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -25,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     "status" => "error",
                     "message" => $e->getMessage(),
                     "line" => $e->getLine(),
+                    "data" => null,
                 ], 500);
             }
             return response()->json([
@@ -32,5 +35,16 @@ return Application::configure(basePath: dirname(__DIR__))
                 "message" => __("messages.error")
             ], 500);
         });
+
+        $exceptions->render(function (NotFoundHttpException $e) {
+
+            return response()->json([
+                "status" => "error",
+                "message" => __("messages.not_found_http_exception"),
+                "data" => null,
+
+            ], 500);
+        });
+
 
     })->create();

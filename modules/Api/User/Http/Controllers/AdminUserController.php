@@ -72,6 +72,7 @@ class AdminUserController extends ApiController
      */
     public function delete(User $user)
     {
-        return $this->successResponse();
+        $result = $this->userRepository->delete($user);
+        return $this->successResponse($result , 200 , __("messages.deleted" , ['attribute' => $this->controllerName]));
     }
 }

@@ -47,4 +47,12 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return $user->update($inputs);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(User $user): mixed
+    {
+        return $user->delete();
+    }
 }

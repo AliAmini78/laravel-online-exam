@@ -9,4 +9,5 @@ Route::controller(AdminUserController::class)->group(function (){
     Route::get('/show/{user}' , "show");
     Route::post('/create' , "create");
     Route::match(['put' , "patch"],'/update/{user}' , "update");
+    Route::delete('/delete/{user}' , "delete");
 });
