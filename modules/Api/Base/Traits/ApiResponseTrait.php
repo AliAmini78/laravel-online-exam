@@ -25,12 +25,12 @@ trait ApiResponseTrait
 
 
     /**
-     * @param string|null $message
+     * @param  $message
      * @param int $status
      * @param null $data
      * @return JsonResponse
      */
-    public function errorResponse(string $message = null, int $status = 400, $data = null): JsonResponse
+    public function errorResponse( $message = null, int $status = 400, $data = null): JsonResponse
     {
         return response()->json([
             "status" => "error",

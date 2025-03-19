@@ -29,4 +29,14 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             ->with($relation)
             ->paginate($perPage);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function create(array $inputs): mixed
+    {
+        return  $this->model
+            ->newQuery()
+            ->create($inputs);
+    }
 }

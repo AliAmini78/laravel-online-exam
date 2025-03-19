@@ -13,4 +13,10 @@ interface UserRepositoryInterface extends BaseRepositoryInterface
      * @return mixed
      */
     public function getAllWithPagination(Request $request): mixed;
+
+    /**
+     * @param array $inputs
+     * @return mixed
+     */
+    public function create(array $inputs): mixed;
 }
