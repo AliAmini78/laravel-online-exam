@@ -3,6 +3,7 @@
 namespace Api\User\Database\Repositories\Contracts;
 
 use Api\Base\Database\Repositories\Contracts\BaseRepositoryInterface;
+use Api\User\Models\User;
 use Illuminate\Http\Request;
 
 interface UserRepositoryInterface extends BaseRepositoryInterface
@@ -19,4 +20,11 @@ interface UserRepositoryInterface extends BaseRepositoryInterface
      * @return mixed
      */
     public function create(array $inputs): mixed;
+
+    /**
+     * @param User $user
+     * @param array $inputs
+     * @return mixed
+     */
+    public function update(User $user, array $inputs): mixed;
 }

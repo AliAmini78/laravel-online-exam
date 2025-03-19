@@ -53,4 +53,25 @@ class AdminUserController extends ApiController
         $result = $this->userRepository->create($request->validated());
         return $this->successResponse(new AdminUserResource($result) , 201 , __("messages.created" , ["attribute" => $this->controllerName]));
     }
+
+    /**
+     * @param User $user
+     * @param UserRequest $request
+     * @return JsonResponse
+     */
+    public function update(User $user ,UserRequest $request)
+    {
+        $this->userRepository->update($user , $request->validated());
+
+        return $this->successResponse(new AdminUserResource($user->fresh()) , 200 , __("messages.updated" , ['attribute' => $this->controllerName]));
+    }
+
+    /**
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function delete(User $user)
+    {
+        return $this->successResponse();
+    }
 }

@@ -35,8 +35,16 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     public function create(array $inputs): mixed
     {
-        return  $this->model
+        return $this->model
             ->newQuery()
             ->create($inputs);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(User $user, array $inputs): mixed
+    {
+        return $user->update($inputs);
     }
 }
