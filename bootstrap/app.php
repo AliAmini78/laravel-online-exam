@@ -24,14 +24,14 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (Error $e) {
             if (config("app.env") === "local") {
                 return response()->json([
-                    "status" => "error",
+                    "status" => false,
                     "message" => $e->getMessage(),
                     "line" => $e->getLine(),
                     "data" => null,
                 ], 500);
             }
             return response()->json([
-                "status" => "error",
+                "status" => false,
                 "message" => __("messages.error")
             ], 500);
         });
@@ -39,7 +39,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (NotFoundHttpException $e) {
 
             return response()->json([
-                "status" => "error",
+                "status" => false,
                 "message" => __("messages.not_found_http_exception"),
                 "data" => null,
 
