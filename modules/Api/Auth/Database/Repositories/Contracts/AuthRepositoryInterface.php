@@ -1,9 +1,10 @@
-/;01]\
-?;>, ;['<={};/[?php
+<?php
 
 namespace Api\Auth\Database\Repositories\Contracts;
 
-interface AuthRepositoryInterface
+use Api\Base\Database\Repositories\Contracts\BaseRepositoryInterface;
+
+interface AuthRepositoryInterface extends BaseRepositoryInterface
 {
 
 }
