@@ -3,9 +3,12 @@
 namespace Api\Auth\Http\Controllers;
 
 use Api\Auth\Database\Repositories\Contracts\AuthRepositoryInterface;
+use Api\Auth\Http\Requests\LoginRequest;
+use Api\Base\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
     private AuthRepositoryInterface $authRepository;
 
@@ -14,8 +17,15 @@ class AuthController extends Controller
         $this->authRepository = $authRepository;
     }
 
-    public function login()
+    /**
+     * @param LoginRequest $request
+     * @return JsonResponse
+     */
+    public function login(LoginRequest $request)
     {
-        dd('asd');
+        $result = $this->authRepository->login($request->validated());
+
+        dd($result);
+        return $this->successResponse();
     }
 }
