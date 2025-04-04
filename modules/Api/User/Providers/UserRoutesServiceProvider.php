@@ -14,7 +14,7 @@ class UserRoutesServiceProvider extends ServiceProvider
     public function register(): void
     {
         Route::prefix('api/admin/user')
-            ->middleware(['api'])
+            ->middleware(['api' , 'auth:sanctum'])
             ->group(__DIR__ . '/../Routes/admin_api_routes.php');
     }
 

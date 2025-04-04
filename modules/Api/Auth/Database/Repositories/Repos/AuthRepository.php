@@ -6,6 +6,7 @@ use Api\Auth\Database\Repositories\Contracts\AuthRepositoryInterface;
 use Api\Base\Database\Repositories\Repos\BaseRepository;
 use Api\User\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthRepository extends BaseRepository implements AuthRepositoryInterface
 {
@@ -24,12 +25,15 @@ class AuthRepository extends BaseRepository implements AuthRepositoryInterface
 
         $user = $this->model->where("email", $inputs['email'])->first();
 
-        $token = $user->createToken("sanctum")->plainTextToken;
+        $token = $user->createToken("auth_token")->plainTextToken;
+
+        $cookie = Cookie::make("auth_token", $token, 60);
 
         return [
             "result" => true,
             "message" => __('messages.login_success'),
-            "token" => $token
+            "token" => $token,
+            "cookie" => $cookie,
         ];
     }
 }

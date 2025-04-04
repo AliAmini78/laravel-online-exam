@@ -14,10 +14,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->remove([
+            \Illuminate\Auth\Middleware\Authorize::class,
+        ]);
         $middleware->append([
             \Api\Base\Http\Middlewares\ForceJsonResponseMiddleware::class,
             \Api\Base\Http\Middlewares\ExecutionTimeMiddleware::class,
+            \Api\Auth\Http\Middlewares\GetTokenFromCookieMiddleware::class,
         ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
 

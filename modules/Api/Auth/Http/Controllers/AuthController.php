@@ -25,7 +25,13 @@ class AuthController extends ApiController
     {
         $result = $this->authRepository->login($request->validated());
 
-        dd($result);
-        return $this->successResponse();
+        if (!$result['result'])
+            return  $this->errorResponse($result['message'] );
+
+        return response()->json([
+            "result" => "success",
+            "data" => $result['token'],
+            "message" => $result['message']
+        ])->withCookie($result['cookie']);
     }
 }
